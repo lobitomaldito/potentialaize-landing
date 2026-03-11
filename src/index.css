@@ -1,0 +1,139 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-ghost text-graphite font-sans antialiased overflow-x-hidden;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Global noise overlay */
+.noise-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.05;
+}
+
+/* Magnetic button interaction styles */
+.magnetic-btn {
+  @apply relative overflow-hidden transition-transform duration-500 ease-[cubic-bezier(0.25,0.46,0.45,0.94)];
+}
+.magnetic-btn:hover {
+  transform: scale(1.03);
+}
+.magnetic-btn > span.bg-slider {
+  @apply absolute inset-0 translate-y-full transition-transform duration-500 ease-out z-[-1];
+}
+.magnetic-btn:hover > span.bg-slider {
+  @apply translate-y-0;
+}
+
+.hover-lift {
+  @apply transition-transform duration-300;
+}
+.hover-lift:hover {
+  @apply -translate-y-[1px];
+}
+
+/* Lines and Dots Hero Animation */
+.lines-and-dots {
+	--anim-dur: 2s;
+	--dot-size: 0.4em;
+	--line-length: 3em;
+	--line-width: 0.1em;
+	position: relative;
+	width: 12em;
+	height: 12em;
+}
+.lines-and-dots__sector {
+	top: 50%;
+	left: 50%;
+	position: absolute;
+}
+.lines-and-dots__dot,
+.lines-and-dots__dot:before,
+.lines-and-dots__line {
+	position: absolute;
+	animation-duration: var(--anim-dur);
+	animation-timing-function: ease-in-out;
+	animation-iteration-count: infinite;
+}
+.lines-and-dots__dot,
+.lines-and-dots__line {
+	animation-delay: inherit;
+}
+.lines-and-dots__dot:before,
+.lines-and-dots__line {
+	background-color: currentColor;
+}
+.lines-and-dots__dot {
+	animation-name: dot-move-in-out;
+	top: calc(var(--line-length) / -2 + var(--dot-size) / -2);
+	left: calc(var(--dot-size) / -2);
+	width: var(--dot-size);
+	height: var(--dot-size);
+	z-index: 1;
+}
+.lines-and-dots__dot:before {
+	animation-name: dot-scale-in-out;
+	animation-timing-function: linear;
+	border-radius: 50%;
+	content: "";
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+.lines-and-dots__dot + .lines-and-dots__dot {
+	animation-name: dot-move-out-in;
+	top: calc(var(--line-length) / 2 + var(--dot-size) / -2);
+}
+.lines-and-dots__dot + .lines-and-dots__dot:before {
+	animation-name: dot-scale-out-in;
+}
+.lines-and-dots__line {
+	animation-name: line-shade, line-spin;
+	opacity: 0.5;
+	top: calc(var(--line-length) / -2);
+	left: calc(var(--line-width) / -2);
+	width: var(--line-width);
+	height: var(--line-length);
+}
+
+@keyframes dot-move-in-out {
+	from { animation-timing-function: ease-in; transform: translateY(0); }
+	50% { animation-timing-function: ease-out; transform: translateY(1.5em); }
+	to { transform: translateY(3em); }
+}
+@keyframes dot-move-out-in {
+	from { animation-timing-function: ease-in; transform: translateY(0); }
+	50% { animation-timing-function: ease-out; transform: translateY(-1.5em); }
+	to { transform: translateY(-3em); }
+}
+@keyframes dot-scale-in-out {
+	from, to { transform: scale(0.67); }
+	50% { transform: scale(1); }
+}
+@keyframes dot-scale-out-in {
+	from, to { transform: scale(0.67); }
+	50% { transform: scale(0.33); }
+}
+@keyframes line-shade {
+	from, to { animation-timing-function: ease-in; transform: scaleY(1); }
+	50% { animation-timing-function: ease-out; transform: scaleY(0); }
+}
+@keyframes line-spin {
+	from, to { animation-timing-function: ease-in; opacity: 0.5; }
+	50% { animation-timing-function: step-start; opacity: 0; }
+}
