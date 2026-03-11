@@ -1,6 +1,6 @@
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
-import Features from './components/Features';
+import Founder from './components/Founder';
 import Philosophy from './components/Philosophy';
 import Protocol from './components/Protocol';
 import Cta from './components/Cta';
@@ -21,7 +21,7 @@ function App() {
 
       <main className="w-full relative">
         <Hero />
-        <Features />
+        <Founder />
         <Philosophy />
         <Protocol />
         <Cta />
